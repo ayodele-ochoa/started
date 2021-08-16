@@ -61,11 +61,12 @@ public abstract class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.V
               //  activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, myFragment).addToBackStack(null).commit();
 
                 Bundle bundle = new Bundle();
-                bundle.putInt("some_int", 0);
+                bundle.putInt("position", i);
 
                 activity.getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .add(R.id.fragment_container_view, ImageSliderFragment.class, bundle)
+                       // .addToBackStack("imageSliderFragment")
                         .commit();
             }
         });

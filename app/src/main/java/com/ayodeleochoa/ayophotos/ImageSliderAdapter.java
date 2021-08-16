@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
@@ -53,16 +55,23 @@ public class ImageSliderAdapter extends
 
         viewHolder.textViewDescription.setText(sliderItem.getDescription());
         viewHolder.textViewDescription.setTextSize(16);
-        viewHolder.textViewDescription.setTextColor(Color.WHITE);
+        viewHolder.textViewDescription.setTextColor(Color.BLACK);
+
+        GlideUrl glideLink = new GlideUrl(sliderItem.getImageUrl(), new LazyHeaders.Builder()
+                .addHeader("User-Agent", "your-user-agent")
+                .build());
+
         Glide.with(viewHolder.itemView)
-                .load(sliderItem.getImageUrl())
+                .load(glideLink)
                 .fitCenter()
+                .placeholder(R.drawable.default_photo)
+                .override(600, 600)
                 .into(viewHolder.imageViewBackground);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -84,7 +93,6 @@ public class ImageSliderAdapter extends
         public SliderAdapterVH(View itemView) {
             super(itemView);
             imageViewBackground = itemView.findViewById(R.id.iv_auto_image_slider);
-            imageGifContainer = itemView.findViewById(R.id.iv_gif_container);
             textViewDescription = itemView.findViewById(R.id.tv_auto_image_slider);
             this.itemView = itemView;
         }
