@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -17,37 +16,48 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import Models.SliderItem;
+
 public class ImageSliderAdapter extends
-        SliderViewAdapter<ImageSliderAdapter.SliderAdapterVH> {
+        SliderViewAdapter<ImageSliderAdapter.SliderAdapterVH>
+{
 
     private Context context;
     private List<SliderItem> mSliderItems = new ArrayList<>();
 
+    // Constructor
     public ImageSliderAdapter(Context context) {
         this.context = context;
     }
 
-    public void renewItems(List<SliderItem> sliderItems) {
+    public void renewItems(List<SliderItem> sliderItems)
+    {
         this.mSliderItems = sliderItems;
         notifyDataSetChanged();
     }
 
-    public void deleteItem(int position) {
+    public void deleteItem(int position)
+    {
         this.mSliderItems.remove(position);
         notifyDataSetChanged();
     }
 
-    public void addItem(SliderItem sliderItem) {
+    // Add items to SliderItem list
+    public void addItem(SliderItem sliderItem)
+    {
         this.mSliderItems.add(sliderItem);
         notifyDataSetChanged();
     }
 
+
     @Override
-    public SliderAdapterVH onCreateViewHolder(ViewGroup parent) {
+    public SliderAdapterVH onCreateViewHolder(ViewGroup parent)
+    {
         View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_slider_layout, null);
         return new SliderAdapterVH(inflate);
     }
 
+    // Add text descriptions and URL's to ImageSliderFragment
     @Override
     public void onBindViewHolder(SliderAdapterVH viewHolder, final int position) {
 
@@ -77,17 +87,18 @@ public class ImageSliderAdapter extends
         });
     }
 
+    // Return total count of galleryList items
     @Override
     public int getCount() {
         //slider view count could be dynamic size
         return mSliderItems.size();
     }
 
+
     class SliderAdapterVH extends SliderViewAdapter.ViewHolder {
 
         View itemView;
         ImageView imageViewBackground;
-        ImageView imageGifContainer;
         TextView textViewDescription;
 
         public SliderAdapterVH(View itemView) {

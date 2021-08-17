@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,21 +17,28 @@ import com.bumptech.glide.load.model.LazyHeaders;
 
 import java.util.ArrayList;
 
-public abstract class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.ViewHolder> {
+import Models.RecyclerList;
+
+public abstract class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.ViewHolder>
+{
     private ArrayList<RecyclerList> galleryList;
     private Context context;
 
-    public AlbumsAdapter(Context context, ArrayList<RecyclerList> galleryList) {
+    // Constructor
+    public AlbumsAdapter(Context context, ArrayList<RecyclerList> galleryList)
+    {
         this.galleryList = galleryList;
         this.context = context;
     }
 
     @Override
-    public AlbumsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public AlbumsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i)
+    {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell_layout, viewGroup, false);
         return new ViewHolder(view);
     }
 
+    // Add album titles and thumbnail URL's to MainActivity
     @Override
     public void onBindViewHolder(AlbumsAdapter.ViewHolder viewHolder, int i)
     {
@@ -53,12 +59,7 @@ public abstract class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.V
             @Override
             public void onClick(View v)
             {
-                // Add code to add navigate to photo gallery page
-                Toast.makeText(context,"Image", Toast.LENGTH_SHORT).show();
-                // v.findNavController().navigate(R.id.action_searchFragment_to_artistFragment);
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
-              //  ImageSliderFragment myFragment = new ImageSliderFragment();
-              //  activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, myFragment).addToBackStack(null).commit();
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("position", i);
@@ -66,12 +67,12 @@ public abstract class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.V
                 activity.getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
                         .add(R.id.fragment_container_view, ImageSliderFragment.class, bundle)
-                       // .addToBackStack("imageSliderFragment")
                         .commit();
             }
         });
     }
 
+    // Return total count of galleryList items
     @Override
     public int getItemCount()
     {

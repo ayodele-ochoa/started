@@ -37,14 +37,7 @@ public class JsonPhotos
         this.title = title;
     }
 
-    //public JsonPhotos(String currencyPair) {
-    //    this.currencyPair = currencyPair;
-    //}
-
-    public String getUrl() {
-
-        return url;
-    }
+    public String getUrl() { return url; }
 
     public void setURL(String url) {
         this.url = url;

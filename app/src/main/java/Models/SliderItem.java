@@ -1,6 +1,7 @@
-package com.ayodeleochoa.ayophotos;
+package Models;
 
-public class SliderItem {
+public class SliderItem
+{
 
     private String description;
     private String imageUrl;
